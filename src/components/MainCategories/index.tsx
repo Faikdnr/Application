@@ -12,7 +12,7 @@ function index() {
     <View style={{ backgroundColor: "#F5F5F5" }}>
               <View style={styles.listContainer}>
               {categories.map((item: Category) => (
-    <CategoryItem key={item.id} item={item} />
+            <CategoryItem key={item.id} item={item} />
         ))}
       </View>
     </View>

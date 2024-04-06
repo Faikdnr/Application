@@ -7,7 +7,7 @@ const style = StyleSheet.create({
     
     headerMain:{
         height: height * 0.064,
-        backgroundColor:'red',
+        backgroundColor:'#800000',
          },
 
          headerOne:{
