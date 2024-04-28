@@ -1,37 +1,27 @@
-import React, { useState } from "react";
-import { View, Text, Dimensions } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import categoriesGetir from "../../../assets/categoriesGetir";
-import { Category } from "../../models";
-
-
+import React, { useState } from 'react'
+import { View, Dimensions, Text, ScrollView } from "react-native"
+import categoriesGetir from '../../../assets/categoriesGetir'
+import { Category } from '../../models'
 const { height, width } = Dimensions.get('window')
-
-const CategoryBox = ({ item, active }: { item: Category, active: Category }) => {
+console.log("the windwo size ", width, height)
+const CategoryBox = ({ active, item }: { active: string, item: string }) => {
+    console.log("The title is ", active)
     return (
-        
-        <View style={[{ paddingHorizontal: 9, backgroundColor: "#EFE3CB", flexDirection: 'row', alignItems: 'center' }, item.name === active.name && { borderBottomColor: '#800000', borderBottomWidth: 2.5 } ]}>
-
-            <Text style={{ fontSize: 14, color: 'white', fontWeight: '600' }}>{item.name} </Text>
-
+        <View style={[{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 9 }, item == active && { borderBottomColor: "#FFD00C", borderBottomWidth: 2.5 }]}>
+            <Text style={{ fontSize: 14, color: 'white', fontWeight: '600' }}>{item}</Text>
         </View>
     )
-
 }
 
-function index({ category }: { category: Category }) {
-    const [categories, setCategories] = useState<Category[]>(categoriesGetir)
+function index({ category }: { category: string }) {
+    const [categories, setCategories] = useState(categoriesGetir)
     return (
-        <ScrollView style={{ width: '100%', backgroundColor: "#EFE3CB", height: height * 0.065, }}
-            showsHorizontalScrollIndicator={false} bounces={true} horizontal={true} >
+        <ScrollView style={{ width: '100%', backgroundColor: '#7849F7', height: height * 0.065 }} showsHorizontalScrollIndicator={false} bounces={true} horizontal={true}>
             {categories.map((item) => (
-                <CategoryBox key={item.id} item={item} active={category} />
+                <CategoryBox item={item.name} active={category} />
             ))
-
             }
         </ScrollView>
-
-
     )
 }
 

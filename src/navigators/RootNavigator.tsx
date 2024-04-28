@@ -1,41 +1,39 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo, FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
+import { View, TouchableOpacity, Text } from "react-native";
+import { Entypo, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeNavigator from "./HomeNavigator";
-import { TouchableOpacity } from "react-native";
 
 const Tab = createBottomTabNavigator();
+function Main() {
+  const CustomTabBarButton = ({ children }) => {
+    return (
+      <TouchableOpacity
+        style={{
+          borderColor: "white",
+          borderWidth: 2,
+          borderRadius: 32,
+          justifyContent: "center",
+          marginTop: -8,
+          alignItems: "center",
+          backgroundColor: "#5C3EBC",
+          width: 55,
+          height: 55,
+        }}
+      >
+        <Entypo name="list" size={32} color="#FFD00C" />
+      </TouchableOpacity>
+    );
+  };
 
-const CustomTabBarButton = ({ children }) => {
-  return (
-    <TouchableOpacity
-      style={{
-        borderColor: "#EFE3CB",
-        borderWidth: 3,
-        borderRadius: 33,
-        justifyContent: "center",
-        marginTop: -4,
-        alignItems: "center",
-        backgroundColor: "#800000",
-        width: 58,
-        height: 58,
-      }}
-    >
-      <Entypo name="list" size={32} color="#EFE3CB" />
-      
-    </TouchableOpacity>
-  );
-};
-
-function RootNavigator() {
   return (
     <Tab.Navigator
-      initialRouteName="Ana Sayfa"
+      initialRouteName="AnaSayfa"
       screenOptions={{
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
-        tabBarActiveTintColor: "#EFE3CB",
-        tabBarInactiveTintColor: "#EFE3CB",
+        tabBarActiveTintColor: "#5C3EBC",
+        tabBarInactiveTintColor: "#959595",
         headerShown: false,
         tabBarStyle: {
           height: 80,
@@ -43,16 +41,16 @@ function RootNavigator() {
       }}
     >
       <Tab.Screen
-          name="AnaSayfa"
-          component={HomeNavigator}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Entypo name="home" size={24} color={color} />
-            ),
-          }}
-        />
+        name="AnaSayfa"
+        component={HomeNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Entypo name="home" size={24} color={color} />
+          ),
+        }}
+      />
       <Tab.Screen
-        name="Arama"
+        name="Bildirimler"
         component={HomeNavigator}
         options={{
           tabBarIcon: ({ color }) => (
@@ -60,33 +58,33 @@ function RootNavigator() {
           ),
         }}
       />
-       <Tab.Screen
-          name="Liste"
-          component={HomeNavigator}
-          options={{
-            tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          }}
-        />
-       <Tab.Screen
-        name="Kullanıcı"
+      <Tab.Screen
+        name="Sat"
+        component={HomeNavigator}
+        options={{
+          tabBarButton: (props) => <CustomTabBarButton {...props} />,
+        }}
+      />
+      <Tab.Screen
+        name="Sohbet"
         component={HomeNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <FontAwesome name="user" size={24} color={color} />
           ),
         }}
+
       />
       <Tab.Screen
-        name="Kampanyalar"
+        name="İlanlarım"
         component={HomeNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="gift" size={24} color={color} />
-          ),
+            <MaterialCommunityIcons name="gift" size={24} color={color} />),
         }}
       />
-    </Tab.Navigator>  
+    </Tab.Navigator>
   );
 }
+export default Main;
 
-export default RootNavigator;
