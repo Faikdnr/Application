@@ -8,7 +8,7 @@ import MainCategories from "../../components/MainCategories"
 
 function index(){
     return(
-        //Ekranın kaydırabilirliği 
+        
         <ScrollView stickyHeaderIndices={[0]} style={{backgroundColor:'#f5f5f5'}}>
             <HeaderMain/>
             <BannerCarousel/>

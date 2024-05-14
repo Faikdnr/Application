@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "jetpazar",
+    "scheme":"jetpazar",
     "slug": "jetpazar",
     "version": "1.0.0",
     "orientation": "portrait",

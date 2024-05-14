@@ -4,10 +4,10 @@ import ImageCarousel from "../../components/ImageCarousel"
 import DetailBox from "../../components/DetailBox"
 import DetailProperty from "../../components/DetailProperty"
 import CardButton from "../../components/CardButton"
-import { Products } from '../../models'
+import { Product } from '../../models'
 
 function index( props) {
-  const [product,setProduct] = useState<Products>()
+  const [product,setProduct] = useState<Product>()
   useEffect(() => {
     setProduct(props.route.params.product)
   

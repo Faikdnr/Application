@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import {Dimensions,SafeAreaView,Text,Image,TextInput,StyleSheet,View,TouchableOpacity,} from "react-native";
+import {
+  Dimensions,
+  SafeAreaView,
+  Text,
+  Image,
+  TextInput,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import HomeScreen from "../screens/HomeScreen";
 import CartScreen from "../screens/CartScreen"
 import CategoryFilterScreen from "../screens/CategoryFilterScreen";
-import { Entypo, Ionicons, Foundation, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo, Ionicons, Foundation,MaterialCommunityIcons } from "@expo/vector-icons";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import logo from "../../assets/logo";
@@ -16,11 +25,11 @@ import * as actions from "../redux/actions/cartActions"
 const { height, width } = Dimensions.get("window");
 const Stack = createStackNavigator();
 
-const tabHiddenRoutes = ["ProductDetails", "CartScreen"];
+const tabHiddenRoutes = ["ProductDetails","CartScreen"];
 
-function MyStack({ navigation, route, cartItems, clearCart }: { cartItems: Product[], clearCart: () => void }) {
+function MyStack({ navigation, route,cartItems,clearCart }:{cartItems:Product[],clearCart: () => void}) {
   const [searchValue, setSearchValue] = useState("");
-  const [totalPrice, setTotalPrice] = useState<number>(0)
+  const [totalPrice,setTotalPrice] = useState<number>(0)
   React.useLayoutEffect(() => {
     const routeName = getFocusedRouteNameFromRoute(route);
     console.log("Route Name is ", routeName);
@@ -34,12 +43,12 @@ function MyStack({ navigation, route, cartItems, clearCart }: { cartItems: Produ
   }, [navigation, route]);
   const navigation_user = useNavigation();
   const getProductsPrice = () => {
-    var total = 0
+    var total=0
     cartItems.forEach(product => {
       const price = (total += product.product.fiyat)
       setTotalPrice(price)
     })
-  }
+  } 
   useEffect(() => {
     getProductsPrice()
 
@@ -47,7 +56,7 @@ function MyStack({ navigation, route, cartItems, clearCart }: { cartItems: Produ
       setTotalPrice(0)
     })
 
-  }, [navigation, route, cartItems])
+  },[navigation,route,cartItems])
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -59,7 +68,7 @@ function MyStack({ navigation, route, cartItems, clearCart }: { cartItems: Produ
             <Image
               resizeMode="contain"
               style={{ width: 70, height: 30 }}
-              source={require("../../assets/getirlogo.png")}
+              source={require("../../assets/logo")}
             />
           ),
         }}
@@ -73,7 +82,7 @@ function MyStack({ navigation, route, cartItems, clearCart }: { cartItems: Produ
           headerStyle: { backgroundColor: "#5C3EBC" },
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => navigation.navigate("CartScreen")}
+            onPress={() => navigation.navigate("CartScreen")}
               style={{
                 width: width * 0.22,
                 height: 33,
@@ -98,7 +107,7 @@ function MyStack({ navigation, route, cartItems, clearCart }: { cartItems: Produ
                   height: 30,
                   borderTopRightRadius: 10,
                   borderBottomRightRadius: 10,
-                  justifyContent: 'center', alignItems: 'center'
+                  justifyContent:'center',alignItems:'center'
                 }}
               >
                 <Text
@@ -128,7 +137,7 @@ function MyStack({ navigation, route, cartItems, clearCart }: { cartItems: Produ
           headerTintColor: "white",
           headerBackTitleVisible: false,
 
-          headerStyle: { backgroundColor: "#5C3EBC" },
+          headerStyle: { backgroundColor: "#5C3EBC" }, //üst renkleri düzenlenecek
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation.goBack()}
@@ -159,7 +168,7 @@ function MyStack({ navigation, route, cartItems, clearCart }: { cartItems: Produ
           ),
         }}
       />
-      <Stack.Screen
+      <Stack.Screen 
         name="CartScreen"
         component={CartScreen}
         options={{
@@ -185,19 +194,19 @@ function MyStack({ navigation, route, cartItems, clearCart }: { cartItems: Produ
             </TouchableOpacity>
           ),
           headerRight: () => (
-            <TouchableOpacity onPress={() => clearCart()} style={{ paddingRight: 10 }}>
-              <Ionicons style={{ marginRight: 8 }} name="trash" size={24} color="white" />
+            <TouchableOpacity onPress={() =>clearCart()} style={{ paddingRight: 10 }}> 
+              <Ionicons style={{marginRight:8}} name="trash" size={24} color="white" />
             </TouchableOpacity>
           ),
         }}
-
+        
       />
     </Stack.Navigator>
   );
 }
 
 const mapStateToProps = (state) => {
-  const { cartItems } = state;
+  const {cartItems} = state;
   return {
     cartItems: cartItems
   }
@@ -209,9 +218,8 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-function HomeNavigator({ navigation, route, cartItems, clearCart }: { cartItems: Product[], clearCart: () => void }) {
+function HomeNavigator({ navigation, route,cartItems,clearCart}:{cartItems:Product[],clearCart:() => void}) {
   return <MyStack navigation={navigation} route={route} cartItems={cartItems} clearCart={clearCart} />;
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeNavigator)
-}
+export default connect(mapStateToProps,mapDispatchToProps)(HomeNavigator)
