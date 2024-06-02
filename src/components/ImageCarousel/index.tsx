@@ -33,7 +33,7 @@ function index({ images }: { images: string[] }) {
       ></FlatList>
       <View style={styles.dots}>
         {images.map((image, index) => (
-          <View key={index} style={[styles.dot, { backgroundColor: index === activeIndex ? '#5D3EBD' : '#F2F0FD' }]} />
+          <View key={index} style={[styles.dot, { backgroundColor: index === activeIndex ? '#840000' : '#F2F0FD' }]} />
         ))}
       </View>
     </View>

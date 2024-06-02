@@ -23,7 +23,7 @@ const Index = ({
     const getProductsPrice = () => {
         let total = 0;
         cartItems.forEach((product) => {
-            total += product.product.fiyat;
+            total += product.product.price;
         });
         setTotalPrice(total);
     };

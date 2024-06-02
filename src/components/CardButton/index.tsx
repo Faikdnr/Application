@@ -15,13 +15,13 @@ function index(props) {
         height: height * 0.1,
         position: 'absolute',
         bottom: 0, width: '100%',
-        backgroundColor: 'white'
+        backgroundColor: '#840000' 
 
       }}>
       <View style={{
-        backgroundColor: '#F3F2FD',
+        backgroundColor: '#840000', 
         flexDirection: 'row', alignItems: 'center',
-        height: height * 0.06, //video 14
+        height: height * 0.06, 
         justifyContent: 'center',
         width: '88%',
         marginHorizontal: '6%',

@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { View,StyleSheet } from "react-native";
-import CategoryItem from "../../components/CategoryItem"
+import { View, StyleSheet } from "react-native";
+import CategoryItem from "../../components/CategoryItem";
 import categoriesGetir from "../../../assets/categoriesGetir";
 import { Category } from "../../models";
-
 
 function index() {
   const [categories, setCategories] = useState(categoriesGetir);
 
   return (
     <View style={{ backgroundColor: "#F5F5F5" }}>
-              <View style={styles.listContainer}>
-              {categories.map((item: Category) => (
-            <CategoryItem key={item.id} item={item} />
+      <View style={styles.listContainer}>
+        {categories.map((item: Category) => (
+          <CategoryItem key={item.id} item={item} />
         ))}
       </View>
     </View>

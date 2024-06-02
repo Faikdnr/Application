@@ -1,74 +1,69 @@
 import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import {
-  Dimensions,
-  SafeAreaView,
-  Text,
-  Image,
-  TextInput,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-} from "react-native";
+import { Dimensions, Text, Image, View, TouchableOpacity } from "react-native";
 import HomeScreen from "../screens/HomeScreen";
-import CartScreen from "../screens/CartScreen"
+import CartScreen from "../screens/CartScreen";
 import CategoryFilterScreen from "../screens/CategoryFilterScreen";
-import { Entypo, Ionicons, Foundation,MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons, Foundation } from "@expo/vector-icons";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
-import { useNavigation } from "@react-navigation/native";
 import logo from "../../assets/logo";
-import ProductDetailsScreen from "../../src/screens/ProductDetailsScreen";
+import ProductDetailsScreen from "../screens/ProductDetailsScreen";
 import { connect } from 'react-redux';
 import { Product } from "../models";
-import * as actions from "../redux/actions/cartActions"
+import * as actions from "../redux/actions/cartActions";
 
 const { height, width } = Dimensions.get("window");
 const Stack = createStackNavigator();
 
-const tabHiddenRoutes = ["ProductDetails","CartScreen"];
+const tabHiddenRoutes = ["ProductDetails", "CartScreen"];
 
-function MyStack({ navigation, route,cartItems,clearCart }:{cartItems:Product[],clearCart: () => void}) {
-  const [searchValue, setSearchValue] = useState("");
-  const [totalPrice,setTotalPrice] = useState<number>(0)
+type MyStackProps = {
+  navigation: any;
+  route: any;
+  cartItems: Product[];
+  clearCart: () => void;
+};
+
+function MyStack({ navigation, route, cartItems, clearCart }: MyStackProps) {
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+
   React.useLayoutEffect(() => {
     const routeName = getFocusedRouteNameFromRoute(route);
-    console.log("Route Name is ", routeName);
     if (tabHiddenRoutes.includes(routeName)) {
-      console.log("Kapat ", routeName);
       navigation.setOptions({ tabBarStyle: { display: "none" } });
     } else {
-      console.log("Aç ", routeName);
-      navigation.setOptions({ tabBarStyle: { display: "true" } });
+      navigation.setOptions({ tabBarStyle: { display: "flex" } });
     }
   }, [navigation, route]);
-  const navigation_user = useNavigation();
+
   const getProductsPrice = () => {
-    var total=0
+    let total = 0;
     cartItems.forEach(product => {
-      const price = (total += product.product.fiyat)
-      setTotalPrice(price)
-    })
-  } 
+      total += product.price;
+    });
+    setTotalPrice(total);
+  };
+
   useEffect(() => {
-    getProductsPrice()
+    getProductsPrice();
+    return () => {
+      setTotalPrice(0);
+    };
+  }, [cartItems]);
 
-    return (() => {
-      setTotalPrice(0)
-    })
-
-  },[navigation,route,cartItems])
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Home"
         component={HomeScreen}
         options={{
-          headerStyle: { backgroundColor: "#5C3EBC" },
+          headerStyle: { backgroundColor: "#EFE3CB" },
+          headerTitleAlign: 'center',
           headerTitle: () => (
             <Image
               resizeMode="contain"
-              style={{ width: 70, height: 30 }}
-              source={require("../../assets/logo")}
+              style={{ width: 120, height: 55 }}
+              source={require("../../assets/Jetpazar.png")}
             />
           ),
         }}
@@ -79,10 +74,10 @@ function MyStack({ navigation, route,cartItems,clearCart }:{cartItems:Product[],
         options={{
           headerTintColor: "white",
           headerBackTitleVisible: false,
-          headerStyle: { backgroundColor: "#5C3EBC" },
+          headerStyle: { backgroundColor: "#840000" },
           headerRight: () => (
             <TouchableOpacity
-            onPress={() => navigation.navigate("CartScreen")}
+              onPress={() => navigation.navigate("CartScreen")}
               style={{
                 width: width * 0.22,
                 height: 33,
@@ -97,9 +92,7 @@ function MyStack({ navigation, route,cartItems,clearCart }:{cartItems:Product[],
                 style={{ width: 23, height: 23, marginLeft: 6 }}
                 source={require("../../assets/cart.png")}
               />
-              <View
-                style={{ width: 5, height: 30, backgroundColor: "white" }}
-              />
+              <View style={{ width: 5, height: 30, backgroundColor: "white" }} />
               <View
                 style={{
                   flex: 1,
@@ -107,7 +100,8 @@ function MyStack({ navigation, route,cartItems,clearCart }:{cartItems:Product[],
                   height: 30,
                   borderTopRightRadius: 10,
                   borderBottomRightRadius: 10,
-                  justifyContent:'center',alignItems:'center'
+                  justifyContent: 'center',
+                  alignItems: 'center'
                 }}
               >
                 <Text
@@ -136,8 +130,7 @@ function MyStack({ navigation, route,cartItems,clearCart }:{cartItems:Product[],
         options={{
           headerTintColor: "white",
           headerBackTitleVisible: false,
-
-          headerStyle: { backgroundColor: "#5C3EBC" }, //üst renkleri düzenlenecek
+          headerStyle: { backgroundColor: "#5C3EBC" },
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation.goBack()}
@@ -194,32 +187,37 @@ function MyStack({ navigation, route,cartItems,clearCart }:{cartItems:Product[],
             </TouchableOpacity>
           ),
           headerRight: () => (
-            <TouchableOpacity onPress={() =>clearCart()} style={{ paddingRight: 10 }}> 
-              <Ionicons style={{marginRight:8}} name="trash" size={24} color="white" />
+            <TouchableOpacity onPress={() => clearCart()} style={{ paddingRight: 10 }}> 
+              <Ionicons style={{ marginRight: 8 }} name="trash" size={24} color="white" />
             </TouchableOpacity>
           ),
         }}
-        
       />
     </Stack.Navigator>
   );
 }
 
-const mapStateToProps = (state) => {
-  const {cartItems} = state;
+const mapStateToProps = (state: any) => {
   return {
-    cartItems: cartItems
+    cartItems: state.cartItems
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     clearCart: () => dispatch(actions.clearCart())
   }
 }
 
-function HomeNavigator({ navigation, route,cartItems,clearCart}:{cartItems:Product[],clearCart:() => void}) {
+type HomeNavigatorProps = {
+  navigation: any;
+  route: any;
+  cartItems: Product[];
+  clearCart: () => void;
+};
+
+function HomeNavigator({ navigation, route, cartItems, clearCart }: HomeNavigatorProps) {
   return <MyStack navigation={navigation} route={route} cartItems={cartItems} clearCart={clearCart} />;
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(HomeNavigator)
+export default connect(mapStateToProps, mapDispatchToProps)(HomeNavigator);

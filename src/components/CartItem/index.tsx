@@ -59,7 +59,7 @@ function index({ product, removeFromCart }: CartItemProps) {
               </Text>
               <Text
                 style={{
-                  color: "#848897",
+                  color: "#840000", // Changed color here
                   fontWeight: "600",
                   fontSize: 12,
                   marginTop: 3,
@@ -70,14 +70,14 @@ function index({ product, removeFromCart }: CartItemProps) {
             </View>
             <Text
               style={{
-                color: "#5D3EBD",
+                color: "#840000", // Changed color here
                 fontWeight: "bold",
                 fontSize: 14,
                 marginTop: 6,
               }}
             >
               <Text>{"\u20BA"}</Text>
-              {product.product.fiyat}
+              {product.product.price}
             </Text>
           </View>
         </View>
@@ -101,7 +101,7 @@ function index({ product, removeFromCart }: CartItemProps) {
             style={{ flex: 1, alignItems: "center" }}
           >
             <Text
-              style={{ fontWeight: "bold", fontSize: 16, color: "#5D3EBD" }}
+              style={{ fontWeight: "bold", fontSize: 16, color: "#840000" }} // Changed color here
             >
               -
             </Text>
@@ -109,7 +109,7 @@ function index({ product, removeFromCart }: CartItemProps) {
           <View
             style={{
               flex: 1,
-              backgroundColor: "#5D3EBD",
+              backgroundColor: "#840000", // Changed color here
               height: height * 0.04,
               justifyContent: "center",
               alignItems: "center",
@@ -121,7 +121,7 @@ function index({ product, removeFromCart }: CartItemProps) {
           </View>
           <View style={{ flex: 1, alignItems: "center" }}>
             <Text
-              style={{ fontWeight: "bold", fontSize: 14, color: "#5D3EBD" }}
+              style={{ fontWeight: "bold", fontSize: 14, color: "#840000" }} // Changed color here
             >
               +
             </Text>

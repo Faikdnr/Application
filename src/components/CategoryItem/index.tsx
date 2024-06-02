@@ -1,16 +1,27 @@
 import React from 'react';
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity, Image, Text, StyleSheet, Dimensions } from "react-native";
+import { TouchableOpacity, Image, Text, Dimensions } from "react-native";
 import { Category } from '../../models';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const { width } = Dimensions.get('window');
+
+type RootStackParamList = {
+  CategoryDetails: {
+    category: {
+      name: string;
+    };
+  };
+};
+
+type CategoryDetailsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'CategoryDetails'>;
 
 type CategoryItemProps = {
   item: Category;
 };
 
 const CategoryItem: React.FC<CategoryItemProps> = ({ item }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<CategoryDetailsScreenNavigationProp>();
 
   return (
     <TouchableOpacity 
@@ -35,4 +46,8 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ item }) => {
 };
 
 export default CategoryItem;
+
+
+
+
 
